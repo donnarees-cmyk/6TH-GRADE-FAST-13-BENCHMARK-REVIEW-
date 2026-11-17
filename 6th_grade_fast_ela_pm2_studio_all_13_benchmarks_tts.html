@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6th Grade FAST ELA PM2 Studio • All 13 B.E.S.T. Benchmarks + TTS</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Merriweather -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Merriweather', 'Georgia', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Synchronized TTS Paragraph Highlight */
+    .tts-para {
+      transition: background-color 0.22s ease, border-color 0.22s ease, transform 0.18s ease;
+      border-left: 4px solid transparent;
+    }
+    .tts-active-para {
+      background-color: #fef08a !important;
+      border-left-color: #ca8a04 !important;
+      box-shadow: 0 2px 10px -2px rgba(202, 138, 4, 0.28);
+      transform: translateX(3px);
+    }
+    /* Smooth custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col selection:bg-indigo-200 selection:text-indigo-950">
+
+  <!-- ======================================================================= -->
+  <!-- STICKY GLOBAL HEADER & GOOGLE ENGLISH TTS AUDIO BAR                     -->
+  <!-- ======================================================================= -->
+  <header class="sticky top-0 z-40 bg-slate-900 text-white shadow-md border-b border-slate-800">
+    <!-- Top Brand & Mode Navigation Row -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+      <!-- Brand Identity -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-inner shrink-0">
+            <i data-lucide="book-open-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-white">Grade 6 FAST ELA PM2 Studio</h1>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400 text-slate-950">
+                13 B.E.S.T. Benchmarks
+              </span>
+            </div>
+            <p class="text-xs text-slate-400">Florida ELA Reading Review • Answer Pickers, Trap-Buster &amp; Split-Screen Practice</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Interactive Mode Tabs -->
+      <nav class="flex items-center gap-1.5 bg-slate-800/90 p-1 rounded-xl border border-slate-700 overflow-x-auto" aria-label="Studio Modes">
+        <button onclick="switchMode('explorer')" id="nav-explorer" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition whitespace-nowrap bg-indigo-600 text-white shadow-sm">
+          <i data-lucide="layers" class="w-4 h-4"></i>
+          <span>1. 13 Benchmarks Explorer</span>
+        </button>
+        <button onclick="switchMode('trapbuster')" id="nav-trapbuster" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-700/60">
+          <i data-lucide="shield-alert" class="w-4 h-4"></i>
+          <span>2. Answer Picker &amp; Trap-Buster</span>
+        </button>
+        <button onclick="switchMode('practice')" id="nav-practice" class="mode-tab flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-700/60">
+          <i data-lucide="monitor-check" class="w-4 h-4"></i>
+          <span>3. Split-Screen PM2 Test</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Sticky Global Google English Read-Aloud Audio Bar -->
+    <div id="tts-audio-bar" class="bg-slate-950/95 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <!-- Left: Label & Live Status Badge -->
+        <div class="flex items-center gap-2.5">
+          <span class="inline-flex items-center gap-1.5 font-extrabold uppercase tracking-wider text-amber-300 bg-amber-400/10 border border-amber-400/30 px-2.5 py-1 rounded-lg">
+            <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+            <span>Read-Aloud Audio</span>
+          </span>
+          <span id="tts-status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 font-semibold">
+            <span id="tts-status-dot" class="w-2 h-2 rounded-full bg-slate-400"></span>
+            <span id="tts-status-text">Ready to Read</span>
+          </span>
+        </div>
+
+        <!-- Right: Pause/Resume, Stop, Speed, and Google English Voice Dropdown -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Play/Pause & Stop Buttons -->
+          <div class="flex items-center bg-slate-800 border border-slate-700 p-0.5 rounded-xl">
+            <button onclick="togglePauseResumeTTS()" id="tts-pause-btn" disabled class="px-2.5 py-1 rounded-lg font-bold text-slate-200 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition flex items-center gap-1.5" title="Pause or Resume Speech">
+              <i data-lucide="pause" id="tts-pause-icon" class="w-3.5 h-3.5"></i>
+              <span id="tts-pause-label">Pause</span>
+            </button>
+            <button onclick="stopTTS()" id="tts-stop-btn" disabled class="px-2.5 py-1 rounded-lg font-bold text-rose-300 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition flex items-center gap-1.5" title="Stop Speech">
+              <i data-lucide="square" class="w-3.5 h-3.5"></i>
+              <span>Stop</span>
+            </button>
+          </div>
+
+          <!-- Speed Selector -->
+          <div class="flex items-center gap-1.5 bg-slate-800 border border-slate-700 px-2.5 py-1.5 rounded-xl">
+            <i data-lucide="gauge" class="w-3.5 h-3.5 text-amber-400"></i>
+            <label for="tts-rate-select" class="text-slate-400 font-semibold">Speed:</label>
+            <select id="tts-rate-select" onchange="changeTtsRate(this.value)" class="bg-transparent text-slate-100 font-bold focus:outline-none cursor-pointer">
+              <option value="0.85" class="bg-slate-900">0.85x</option>
+              <option value="1.0" selected class="bg-slate-900">1.0x</option>
+              <option value="1.15" class="bg-slate-900">1.15x</option>
+            </select>
+          </div>
+
+          <!-- Google English Voice Dropdown -->
+          <div class="flex items-center gap-1.5 bg-slate-800 border border-slate-700 px-2.5 py-1.5 rounded-xl">
+            <i data-lucide="mic" class="w-3.5 h-3.5 text-indigo-400 shrink-0"></i>
+            <select id="tts-voice-select" onchange="changeTtsVoice(this.value)" aria-label="Select Google English Voice" class="bg-transparent text-slate-100 font-semibold focus:outline-none max-w-[175px] sm:max-w-[235px] cursor-pointer truncate">
+              <option value="" class="bg-slate-900">Loading Google English...</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================= -->
+  <!-- MAIN CONTENT WORKSPACE                                                  -->
+  <!-- ======================================================================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ===================================================================== -->
+    <!-- MODE 1: 13 BENCHMARKS EXPLORER                                        -->
+    <!-- ===================================================================== -->
+    <section id="view-explorer" class="space-y-6">
+      <!-- Category Filter Header Card -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div>
+          <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md mb-1">
+            <i data-lucide="compass" class="w-3.5 h-3.5"></i> Florida B.E.S.T. Blueprint
+          </span>
+          <h2 class="text-xl font-extrabold text-slate-900">Grade 6 ELA Reading Benchmarks</h2>
+          <p class="text-sm text-slate-600 mt-0.5">Select any benchmark card to inspect its mental formula, quick example, FAST Answer Picker rule, and common student trap.</p>
+        </div>
+
+        <!-- Reporting Category Filter Pills (No Percentages) -->
+        <div class="flex flex-wrap items-center gap-2" id="explorer-category-filters">
+          <button onclick="filterBenchmarks('ALL')" data-cat="ALL" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-slate-900 text-white shadow-sm">
+            All 13 Benchmarks
+          </button>
+          <button onclick="filterBenchmarks('Prose & Poetry')" data-cat="Prose & Poetry" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Reading Prose &amp; Poetry
+          </button>
+          <button onclick="filterBenchmarks('Informational Text')" data-cat="Informational Text" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Reading Informational Text
+          </button>
+          <button onclick="filterBenchmarks('Across Genres & Vocabulary')" data-cat="Across Genres & Vocabulary" class="cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-slate-100 text-slate-700 hover:bg-slate-200">
+            Across Genres &amp; Vocabulary
+          </button>
+        </div>
+      </div>
+
+      <!-- Two-Column Explorer Layout: Grid (Left) + Rich Detail Inspector (Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Benchmark Cards Grid (7 cols) -->
+        <div id="benchmarks-grid" class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <!-- Populated dynamically by JS -->
+        </div>
+
+        <!-- Sticky Rich Detail Panel (5 cols) -->
+        <div class="lg:col-span-5 lg:sticky lg:top-32 bg-white rounded-2xl border-2 border-indigo-200 shadow-sm p-5 sm:p-6 space-y-4" id="benchmark-detail-panel">
+          <div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span id="detail-code" class="px-2.5 py-0.5 rounded-md text-xs font-mono font-extrabold bg-indigo-700 text-white">ELA.6.R.1.1</span>
+                <span id="detail-category" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-800 border border-indigo-200">Reading Prose &amp; Poetry</span>
+              </div>
+              <h3 id="detail-title" class="text-lg sm:text-xl font-extrabold text-slate-900">Literary Elements &amp; Plot</h3>
+            </div>
+            <button onclick="speakSelectedBenchmark()" class="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition" title="Read Benchmark Guide Aloud">
+              <i data-lucide="volume-2" class="w-4 h-4"></i>
+              <span>Read Aloud</span>
+            </button>
+          </div>
+
+          <p id="detail-summary" class="text-sm text-slate-700 leading-relaxed">
+            Analyze how the interaction between characters, setting, and plot events drives a story forward.
+          </p>
+
+          <!-- Mental Formula Box -->
+          <div class="bg-slate-900 text-white rounded-xl p-3.5">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400 mb-1 flex items-center gap-1.5">
+              <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Mental Formula
+            </div>
+            <div id="detail-formula" class="font-mono text-xs sm:text-sm font-bold text-slate-100">
+              Setting Pressure + Character Trait → Action → Consequence
+            </div>
+          </div>
+
+          <!-- Quick Example Box -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-600"></i> Quick Classroom Example
+            </div>
+            <p id="detail-example" class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+              When a sudden storm traps Maya in the library (setting), her resourcefulness leads her to organize a lantern reading circle (decision), uniting rival classmates (consequence).
+            </p>
+          </div>
+
+          <!-- FAST Answer Picker Rule -->
+          <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800 mb-1 flex items-center gap-1.5">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600"></i> FAST Answer Picker Rule
+            </div>
+            <p id="detail-picker" class="text-xs sm:text-sm text-emerald-950 font-medium leading-relaxed">
+              Pick the choice that shows a clear CAUSE-AND-EFFECT chain connecting how one story element forces a character to change or act.
+            </p>
+          </div>
+
+          <!-- Common Trap Alert -->
+          <div class="bg-rose-50 border border-rose-200 rounded-xl p-3.5">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-rose-800 mb-1 flex items-center gap-1.5">
+              <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-600"></i> Common Trap Alert
+            </div>
+            <p id="detail-trap" class="text-xs sm:text-sm text-rose-950 font-medium leading-relaxed">
+              Avoid answers that only summarize a random event without explaining how it alters the conflict or character's decision.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- MODE 2: ANSWER PICKER & TRAP-BUSTER GAME                              -->
+    <!-- ===================================================================== -->
+    <section id="view-trapbuster" class="hidden max-w-4xl mx-auto space-y-6">
+      <!-- Top HUD Bar -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md mb-1">
+            <i data-lucide="zap" class="w-3.5 h-3.5"></i> 12-Round FAST Trap Detector
+          </span>
+          <h2 class="text-xl font-extrabold text-slate-900">Answer Picker &amp; Trap-Buster Game</h2>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- Auto-Read Toggle -->
+          <button onclick="toggleGameAutoRead()" id="game-autoread-btn" class="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center gap-1.5 transition" title="Automatically read new rounds aloud">
+            <i data-lucide="volume-x" id="game-autoread-icon" class="w-4 h-4 text-slate-400"></i>
+            <span id="game-autoread-label">Auto-Read: Off</span>
+          </button>
+
+          <div class="bg-slate-100 px-3.5 py-2 rounded-xl border border-slate-200 text-center">
+            <div class="text-[10px] font-bold uppercase text-slate-400">Round</div>
+            <div class="text-sm font-extrabold text-slate-800" id="game-round-counter">1 of 12</div>
+          </div>
+
+          <div class="bg-indigo-50 px-3.5 py-2 rounded-xl border border-indigo-200 text-center">
+            <div class="text-[10px] font-bold uppercase text-indigo-500">Score</div>
+            <div class="text-sm font-extrabold text-indigo-800" id="game-score-counter">0 of 12</div>
+          </div>
+
+          <div class="bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200 text-center">
+            <div class="text-[10px] font-bold uppercase text-amber-600">Streak</div>
+            <div class="text-sm font-extrabold text-amber-700" id="game-streak-counter">0 🔥</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Challenge Card -->
+      <div id="game-active-card" class="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+        <!-- Progress Bar -->
+        <div class="w-full h-2 bg-slate-100">
+          <div id="game-progress-bar" class="h-full bg-indigo-600 transition-all duration-300" style="width: 8.33%"></div>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <!-- Card Header Badges & Listen Button -->
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="game-benchmark-tag" class="px-2.5 py-1 rounded-md text-xs font-mono font-extrabold bg-indigo-100 text-indigo-800">ELA.6.R.1.2</span>
+              <span id="game-trap-topic" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900">Topic vs. Theme</span>
+            </div>
+            <button onclick="speakGameCard()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+              <span>Listen to Prompt</span>
+            </button>
+          </div>
+
+          <!-- Scenario / Excerpt -->
+          <div class="space-y-3">
+            <div id="game-excerpt-box" class="bg-slate-50 border border-slate-200 rounded-xl p-4 font-serif text-sm sm:text-base text-slate-800 leading-relaxed">
+              <!-- Excerpt text -->
+            </div>
+            <h3 id="game-question-prompt" class="text-lg sm:text-xl font-extrabold text-slate-900 leading-snug">
+              <!-- Prompt -->
+            </h3>
+          </div>
+
+          <!-- Choice Buttons -->
+          <div id="game-options-grid" class="grid grid-cols-1 gap-3">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- Instant Trap-Buster Explanation Banner -->
+          <div id="game-feedback-banner" class="hidden rounded-2xl p-4 sm:p-5 border transition-all">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-start gap-3">
+                <div id="game-feedback-icon" class="mt-0.5 shrink-0"></div>
+                <div class="space-y-1">
+                  <h4 id="game-feedback-title" class="font-extrabold text-base"></h4>
+                  <p id="game-feedback-explanation" class="text-xs sm:text-sm leading-relaxed"></p>
+                </div>
+              </div>
+              <button onclick="speakGameFeedback()" class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 hover:bg-white border border-slate-300 text-slate-800 text-xs font-bold transition">
+                <i data-lucide="volume-2" class="w-3.5 h-3.5 text-indigo-600"></i>
+                <span>Listen</span>
+              </button>
+            </div>
+            <div class="mt-4 flex justify-end">
+              <button onclick="nextGameRound()" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold transition flex items-center gap-2">
+                <span id="game-next-btn-label">Next Round</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Complete Summary Card -->
+      <div id="game-complete-card" class="hidden bg-white rounded-2xl border border-slate-200 shadow-md p-8 text-center space-y-5">
+        <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
+          <i data-lucide="award" class="w-9 h-9"></i>
+        </div>
+        <div class="space-y-1">
+          <h3 class="text-2xl font-extrabold text-slate-900">Trap-Buster Challenge Complete!</h3>
+          <p id="game-final-summary" class="text-sm sm:text-base text-slate-600 font-medium">You busted 12 of 12 FAST traps!</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3 pt-2">
+          <button onclick="restartGame()" class="px-5 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-sm transition flex items-center gap-2">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+            <span>Play Again</span>
+          </button>
+          <button onclick="switchMode('practice')" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition flex items-center gap-2">
+            <span>Start Split-Screen PM2 Test</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- MODE 3: SPLIT-SCREEN PM2 PRACTICE TEST (13 ITEMS)                     -->
+    <!-- ===================================================================== -->
+    <section id="view-practice" class="hidden space-y-4">
+      <!-- Simulated FAST PM2 Header Bar -->
+      <div class="bg-slate-900 text-white rounded-2xl px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <span class="bg-amber-400 text-slate-950 text-xs font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">
+            PM2 Simulator
+          </span>
+          <span class="text-xs sm:text-sm font-semibold text-slate-200">Grade 6 FAST ELA Reading • 13 Benchmark Items</span>
+        </div>
+
+        <!-- Question Navigation Pills (1 to 13) -->
+        <div class="flex flex-wrap items-center gap-1.5" id="test-nav-pills">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Active Split-Screen Container -->
+      <div id="test-split-workspace" class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+        
+        <!-- LEFT PANE: 3 Original Passage Sets + Synchronized Read-Aloud -->
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+          <!-- Passage Set Switcher & Read Passage Button -->
+          <div class="bg-slate-100 border-b border-slate-200 px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center gap-1">
+              <button onclick="selectPassageSet(0)" id="passage-tab-0" class="passage-tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-indigo-700 shadow-sm border border-slate-200">
+                Set 1: Literary
+              </button>
+              <button onclick="selectPassageSet(1)" id="passage-tab-1" class="passage-tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900">
+                Set 2: Paired Info
+              </button>
+              <button onclick="selectPassageSet(2)" id="passage-tab-2" class="passage-tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900">
+                Set 3: Civic Speech
+              </button>
+            </div>
+
+            <button onclick="speakActivePassageSet()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold shadow-sm transition" title="Read Active Passage Set Aloud with Line/Paragraph Highlighting">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+              <span>Read Passage</span>
+            </button>
+          </div>
+
+          <!-- Scrollable Passage Reader -->
+          <div id="test-passage-reader" class="p-5 sm:p-6 overflow-y-auto max-h-[580px] space-y-5 text-slate-800 leading-relaxed">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- RIGHT PANE: FAST Question & Answer Choices -->
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 flex flex-col justify-between">
+          <div class="space-y-4">
+            <!-- Question Header Metadata -->
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <div class="flex flex-wrap items-center gap-2">
+                <span id="test-q-num" class="w-7 h-7 rounded-lg bg-indigo-700 text-white font-extrabold text-sm flex items-center justify-center">1</span>
+                <span id="test-q-benchmark" class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200 font-mono text-xs font-extrabold">ELA.6.R.1.1</span>
+                <span id="test-q-type" class="text-xs font-bold uppercase tracking-wider text-slate-500">Multiple Choice</span>
+              </div>
+
+              <button onclick="speakCurrentTestQuestion()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 text-xs font-extrabold transition" title="Read Question and Choices Aloud">
+                <i data-lucide="volume-2" class="w-3.5 h-3.5 text-amber-700"></i>
+                <span>Read Question &amp; Choices</span>
+              </button>
+            </div>
+
+            <!-- Question Stem -->
+            <div id="test-q-stem" class="text-base sm:text-lg font-extrabold text-slate-900 leading-snug">
+              <!-- Stem -->
+            </div>
+
+            <!-- Multi-Select Banner (Hidden unless multi-select) -->
+            <div id="test-multiselect-banner" class="hidden bg-amber-50 border border-amber-200 text-amber-950 text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-2">
+              <i data-lucide="check-square" class="w-4 h-4 text-amber-600 shrink-0"></i>
+              <span>Select <strong>TWO</strong> correct answers.</span>
+            </div>
+
+            <!-- Answer Options -->
+            <div id="test-options-list" class="space-y-2.5 pt-1">
+              <!-- Options rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Bottom Navigation & Submit Controls -->
+          <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between gap-3">
+            <button onclick="prevTestQuestion()" id="test-prev-btn" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold text-sm disabled:opacity-40 disabled:cursor-not-allowed transition flex items-center gap-1.5">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              <span>Previous</span>
+            </button>
+
+            <div id="test-progress-text" class="text-xs font-bold text-slate-500">
+              0 of 13 answered
+            </div>
+
+            <button onclick="nextTestQuestion()" id="test-next-btn" class="px-5 py-2.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-sm shadow-sm transition flex items-center gap-1.5">
+              <span>Next</span>
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- PM2 TEST RESULTS & ACHIEVEMENT LEVEL REPORT (NO PERCENTAGES)        -->
+      <!-- =================================================================== -->
+      <div id="test-results-view" class="hidden space-y-6">
+        <!-- Score & Achievement Level Hero -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-md p-6 sm:p-8 space-y-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-slate-100 pb-6">
+            <div class="space-y-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800">
+                <i data-lucide="award" class="w-3.5 h-3.5"></i> FAST PM2 Diagnostic Report
+              </span>
+              <h2 id="results-headline" class="text-2xl sm:text-3xl font-extrabold text-slate-900">You answered 11 of 13 items correctly</h2>
+              <p id="results-level-desc" class="text-sm text-slate-600 max-w-2xl leading-relaxed">
+                Strong command of Grade 6 B.E.S.T. reading benchmarks! Review your reporting category breakdown and item rationales below.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+              <!-- FAST Achievement Level Pill -->
+              <div id="results-level-card" class="px-5 py-4 rounded-2xl bg-indigo-50 border-2 border-indigo-200 text-center">
+                <div class="text-[11px] font-extrabold uppercase tracking-wider text-indigo-500">Estimated Band</div>
+                <div id="results-level-badge" class="text-xl font-black text-indigo-800 mt-0.5">Level 4 • Proficient</div>
+                <div id="results-fraction-badge" class="text-xs font-bold text-indigo-600 mt-0.5">11 of 13 Correct</div>
+              </div>
+
+              <button onclick="retakePracticeTest()" class="px-4 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition flex items-center gap-2">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                <span>Retake Test</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Reporting Category Breakdown (No Percentages) -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Reporting Category Mastery</h3>
+            <div id="results-category-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Item-by-Item Answer Review & Rationales -->
+        <div class="space-y-4" id="results-items-review">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Non-blocking Toast Banner -->
+  <div id="toast-banner" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 flex items-center gap-2.5 text-xs sm:text-sm font-semibold">
+      <i data-lucide="info" class="w-4 h-4 text-amber-400 shrink-0"></i>
+      <span id="toast-text">Notification</span>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- JAVASCRIPT ENGINE: DATA, STRICT GOOGLE ENGLISH TTS & 3 MODES            -->
+  <!-- ======================================================================= -->
+  <script>
+    // =========================================================================
+    // 1. ALL 13 GRADE 6 B.E.S.T. ELA READING BENCHMARKS DATA (NO PERCENTAGES)
+    // =========================================================================
+    const BENCHMARKS = [
+      {
+        code: 'ELA.6.R.1.1',
+        category: 'Prose & Poetry',
+        categoryLabel: 'Reading Prose & Poetry',
+        title: 'Literary Elements & Plot',
+        summary: 'Analyze how the interaction between characters, setting, and plot events drives a story forward.',
+        formula: 'Setting Pressure + Character Trait → Decision → Consequence',
+        example: 'When a power outage darkens the robotics lab (setting), Elena’s patience helps her guide her panicked teammates using flashlights (decision), saving their prototype (consequence).',
+        picker: 'Choose the option that shows a clear cause-and-effect chain explaining how one story element forces a character to act or change.',
+        trap: 'Trap: Picking a choice that merely retells a random detail without connecting it to the conflict or character growth.'
+      },
+      {
+        code: 'ELA.6.R.1.2',
+        category: 'Prose & Poetry',
+        categoryLabel: 'Reading Prose & Poetry',
+        title: 'Theme Development',
+        summary: 'Analyze the development of stated or implied theme(s) throughout a literary text.',
+        formula: 'Character Mistake + Turning Point + Lesson Learned = Theme Statement',
+        example: 'Topic: Friendship. Theme: True friendship requires honesty even when the truth is uncomfortable.',
+        picker: 'Select a complete, universal sentence about life or human nature that applies across the entire story—not just one scene.',
+        trap: 'Trap: Confusing a one-word TOPIC ("courage" or "honesty") or a character-specific summary with a universal THEME.'
+      },
+      {
+        code: 'ELA.6.R.1.3',
+        category: 'Prose & Poetry',
+        categoryLabel: 'Reading Prose & Poetry',
+        title: 'Perspective & Point of View',
+        summary: 'Explain the influence of multiple narrators and/or shifts in point of view in a literary text.',
+        formula: 'Narrator Lens (What they know/feel) → Dramatic Irony or Reader Sympathy',
+        example: 'Switching from Leo’s confident diary entry to his sister’s worried perspective reveals Leo missed a major clue.',
+        picker: 'Identify what specific information, bias, or emotion the reader gains—or misses—because of who is telling the story.',
+        trap: 'Trap: Only naming "first-person" or "third-person" without explaining how that perspective shapes the reader’s understanding.'
+      },
+      {
+        code: 'ELA.6.R.1.4',
+        category: 'Prose & Poetry',
+        categoryLabel: 'Reading Prose & Poetry',
+        title: 'Poetic Forms (Sonnet & Villanelle)',
+        summary: 'Describe the impact of various poetic forms, stanza structures, and rhyme schemes on meaning and style.',
+        formula: 'Sonnet (14 lines: 3 Quatrains + Couplet Volta) vs. Villanelle (19 lines: 5 Tercets + Quatrain Refrains)',
+        example: 'A sonnet’s closing couplet flips a problem into a sudden lesson; a villanelle’s repeating refrains echo a lingering obsession or memory.',
+        picker: 'Link the physical structure (couplet twist, repeating refrain, stanza break) directly to the poem’s mood or central message.',
+        trap: 'Trap: Counting lines or naming rhyme letters (ABAB) without explaining WHY the poet used that structure.'
+      },
+      {
+        code: 'ELA.6.R.2.1',
+        category: 'Informational Text',
+        categoryLabel: 'Reading Informational Text',
+        title: 'Text Structure & Text Features',
+        summary: 'Explain how individual text sections and/or features convey meaning in informational texts.',
+        formula: 'Section Role (Cause/Effect, Problem/Solution, Compare/Contrast) + Sidebar/Chart → Central Idea',
+        example: 'A timeline sidebar shows how quickly battery technology shrank, proving the main article’s point about rapid innovation.',
+        picker: 'Ask: "What job does this paragraph, subheading, or diagram do to help prove the author’s main point?"',
+        trap: 'Trap: Describing what a chart looks like rather than how its data supports or clarifies the surrounding text.'
+      },
+      {
+        code: 'ELA.6.R.2.2',
+        category: 'Informational Text',
+        categoryLabel: 'Reading Informational Text',
+        title: 'Central Idea & Relevant Details',
+        summary: 'Analyze the central idea(s), implied or explicit, and its development throughout a text.',
+        formula: 'Repeated Topic + Author’s Big Point Across All Paragraphs = Central Idea',
+        example: 'Across three sections on bees, soil, and shade, the central idea is that rooftop gardens cool cities while supporting urban wildlife.',
+        picker: 'Verify that every major section of the passage connects back to your chosen central idea—not just the first paragraph.',
+        trap: 'Trap: Falling for a supporting detail that is 100% true in paragraph 2, but too narrow to cover the whole passage.'
+      },
+      {
+        code: 'ELA.6.R.2.3',
+        category: 'Informational Text',
+        categoryLabel: 'Reading Informational Text',
+        title: 'Author’s Purpose & Perspective',
+        summary: 'Analyze authors’ purpose(s) in multiple accounts of the same event or topic.',
+        formula: 'Word Choice + Included Facts vs. Omitted Facts = Author’s Purpose & Angle',
+        example: 'Account A highlights student excitement about later school start times; Account B emphasizes bus scheduling costs.',
+        picker: 'Compare what each author chooses to emphasize or leave out when writing about the exact same topic.',
+        trap: 'Trap: Picking generic labels like "to inform" when the question asks how two accounts differ in focus or attitude.'
+      },
+      {
+        code: 'ELA.6.R.2.4',
+        category: 'Informational Text',
+        categoryLabel: 'Reading Informational Text',
+        title: 'Argument, Reasoning & Fallacies',
+        summary: 'Track the development of an argument, identifying types of reasoning (deductive, inductive, abductive) and logical fallacies.',
+        formula: 'Claim ← Reasoning (Deductive / Inductive / Abductive) ← Evidence (Watch for Ad Hominem, Ad Populum, Hasty Generalization)',
+        example: 'Inductive: 50 tested roof plots dropped temperatures by 6°F, so rooftop gardens cool buildings. Fallacy (Ad Populum): "Everyone loves it, so it must work!"',
+        picker: 'Match specific evidence to the exact claim it proves, and flag weak logic like personal attacks (ad hominem) or bandwagon claims (ad populum).',
+        trap: 'Trap: Confusing raw facts (EVIDENCE) with the author’s logical explanation connecting facts to the claim (REASONING).'
+      },
+      {
+        code: 'ELA.6.R.3.1',
+        category: 'Across Genres & Vocabulary',
+        categoryLabel: 'Across Genres & Vocabulary',
+        title: 'Figurative Language & Tone',
+        summary: 'Explain how figurative language (metaphor, simile, personification, hyperbole, idiom) contributes to tone and meaning.',
+        formula: 'Figurative Comparison + Word Connotation → Emotional Tone + Deeper Meaning',
+        example: 'Calling the old lighthouse "a stubborn soldier standing watch" creates an admiring, resilient tone.',
+        picker: 'Always choose the answer that explains the EMOTIONAL EFFECT or MEANING created by the comparison.',
+        trap: 'Trap: Correctly identifying a metaphor or personification, but picking an option that ignores how it shapes tone.'
+      },
+      {
+        code: 'ELA.6.R.3.3',
+        category: 'Across Genres & Vocabulary',
+        categoryLabel: 'Across Genres & Vocabulary',
+        title: 'Compare & Contrast Across Genres',
+        summary: 'Compare and contrast how authors from different time periods or genres address the same or related topics.',
+        formula: 'Shared Theme/Topic + Genre Tool (Story Plot vs. Poem Imagery vs. Speech Facts) = Author Approach',
+        example: 'Both a story and a poem explore responsibility, but the story uses a character’s mistake while the poem uses a repeating refrain.',
+        picker: 'Look for a statement that accurately pairs a shared message with how each genre delivers that message differently.',
+        trap: 'Trap: Choosing an answer that is true for Passage 1 but completely false for Passage 2.'
+      },
+      {
+        code: 'ELA.6.R.3.4',
+        category: 'Across Genres & Vocabulary',
+        categoryLabel: 'Across Genres & Vocabulary',
+        title: 'Rhetorical Appeals (Ethos, Logos, Pathos)',
+        summary: 'Identify rhetorical appeals (ethos, logos, pathos) in a text or speech and explain their effect on the audience.',
+        formula: 'Ethos = Credibility/Trust • Logos = Logic/Data/Facts • Pathos = Emotion/Values',
+        example: 'Citing a 40% drop in cyberbullying from a university study uses LOGOS; sharing a student’s heartfelt story uses PATHOS.',
+        picker: 'Check how the speaker persuades: expert credentials (Ethos), numbers/logic (Logos), or vivid feelings (Pathos).',
+        trap: 'Trap: Mistaking an emotional personal story (Pathos) for statistical proof (Logos).'
+      },
+      {
+        code: 'ELA.6.V.1.2',
+        category: 'Across Genres & Vocabulary',
+        categoryLabel: 'Across Genres & Vocabulary',
+        title: 'Greek & Latin Roots and Affixes',
+        summary: 'Apply knowledge of Greek and Latin roots and affixes to determine meanings of words and phrases in grade-level content.',
+        formula: 'Prefix + Root + Suffix + Sentence Context = Word Meaning',
+        example: 'chron (time) + -ology (study of) = chronology (order of events in time).',
+        picker: 'Break the unfamiliar word into its root parts, then plug your definition back into the sentence to verify it fits.',
+        trap: 'Trap: Guessing based on a word that merely sounds similar without checking the root meaning in context.'
+      },
+      {
+        code: 'ELA.6.V.1.3',
+        category: 'Across Genres & Vocabulary',
+        categoryLabel: 'Across Genres & Vocabulary',
+        title: 'Context Clues & Connotation',
+        summary: 'Apply knowledge of context clues, figurative language, word relationships, reference materials, and background knowledge to determine connotative and denotative meanings.',
+        formula: 'Denotation (Dictionary Meaning) + Positive/Negative Connotation (Feeling) = Precise Meaning',
+        example: '"Curious" (positive/eager to learn) vs. "nosy" (negative/intrusive) share a similar denotation but opposite connotations.',
+        picker: 'Test your chosen definition directly inside the original sentence and match the author’s positive or negative tone.',
+        trap: 'Trap: Picking a real dictionary definition of a multiple-meaning word that fails to match how it is used in that specific paragraph.'
+      }
+    ];
+
+    // =========================================================================
+    // 2. ANSWER PICKER & TRAP-BUSTER GAME DATA (12 ROUNDS)
+    // =========================================================================
+    const TRAP_BUSTER_ROUNDS = [
+      {
+        benchmark: 'ELA.6.R.1.2',
+        topic: 'Topic vs. Theme',
+        excerpt: 'After hiding his broken trophy for weeks, Marcus finally admits his mistake to his coach and discovers that honesty earns more respect than a flawless shelf.',
+        prompt: 'Which choice states a THEME rather than a topic or plot summary?',
+        options: [
+          { id: 'A', text: 'Honesty and responsibility' },
+          { id: 'B', text: 'Admitting mistakes builds true integrity and trust.' },
+          { id: 'C', text: 'Marcus hides a broken trophy in his closet for weeks.' }
+        ],
+        correct: 'B',
+        explanation: 'B is a universal THEME statement about life. A is only a two-word topic, and C is a character-specific plot summary.'
+      },
+      {
+        benchmark: 'ELA.6.R.2.4',
+        topic: 'Evidence vs. Reasoning',
+        excerpt: 'Claim: Middle schools should plant native pollinator gardens. Sentence X: "Native wildflowers require 60% less irrigation water than turf grass." Sentence Y: "Because they need far less watering, schools can lower utility bills while helping local bees."',
+        prompt: 'Which sentence provides the REASONING that connects the fact to the claim?',
+        options: [
+          { id: 'A', text: 'Sentence X, because it gives a specific measurement.' },
+          { id: 'B', text: 'Sentence Y, because it explains why the water-saving fact proves the claim.' },
+          { id: 'C', text: 'Neither sentence connects to pollinator gardens.' }
+        ],
+        correct: 'B',
+        explanation: 'Sentence X is the raw EVIDENCE (a statistic). Sentence Y is the REASONING—the logical bridge explaining how that statistic supports the claim!'
+      },
+      {
+        benchmark: 'ELA.6.R.2.4',
+        topic: 'Logical Fallacies',
+        excerpt: '"We shouldn’t listen to Dr. Patel’s solar energy proposal—she rides a bright green bicycle to work and wears mismatched socks!"',
+        prompt: 'Which logical fallacy is used in this statement?',
+        options: [
+          { id: 'A', text: 'Ad hominem (attacking the person instead of their argument)' },
+          { id: 'B', text: 'Ad populum (claiming something is true because everyone agrees)' },
+          { id: 'C', text: 'Deductive reasoning (applying a general rule to a specific case)' }
+        ],
+        correct: 'A',
+        explanation: 'Attacking Dr. Patel’s bicycle and socks instead of addressing her solar energy evidence is a classic Ad Hominem fallacy.'
+      },
+      {
+        benchmark: 'ELA.6.R.2.4',
+        topic: 'Deductive, Inductive & Abductive Reasoning',
+        excerpt: 'Rule: All reptiles are cold-blooded vertebrates. Fact: A Florida gopher tortoise is a reptile. Conclusion: Therefore, a gopher tortoise is cold-blooded.',
+        prompt: 'What type of reasoning moves from a general rule to a guaranteed specific conclusion?',
+        options: [
+          { id: 'A', text: 'Inductive reasoning' },
+          { id: 'B', text: 'Abductive reasoning' },
+          { id: 'C', text: 'Deductive reasoning' }
+        ],
+        correct: 'C',
+        explanation: 'Deductive reasoning starts with a general rule ("All reptiles...") and applies it to a specific case ("gopher tortoise") to reach a certain conclusion.'
+      },
+      {
+        benchmark: 'ELA.6.R.3.4',
+        topic: 'Ethos, Logos & Pathos',
+        excerpt: '"Imagine a sixth grader sitting alone at lunch, staring at a screen full of cruel comments with no one to turn to."',
+        prompt: 'Which rhetorical appeal is the speaker primarily using here?',
+        options: [
+          { id: 'A', text: 'Logos (logical statistics and data)' },
+          { id: 'B', text: 'Pathos (appealing to the audience’s empathy and emotions)' },
+          { id: 'C', text: 'Ethos (establishing expert credentials)' }
+        ],
+        correct: 'B',
+        explanation: 'Asking the audience to imagine a lonely student’s pain appeals directly to empathy and emotion—which is Pathos!'
+      },
+      {
+        benchmark: 'ELA.6.R.3.4',
+        topic: 'Ethos, Logos & Pathos',
+        excerpt: '"As a pediatric sleep researcher who has studied adolescent brain health for fifteen years, I urge the board to review our findings."',
+        prompt: 'Which rhetorical appeal is demonstrated by highlighting fifteen years of medical research experience?',
+        options: [
+          { id: 'A', text: 'Ethos (credibility and trustworthiness)' },
+          { id: 'B', text: 'Pathos (fear and excitement)' },
+          { id: 'C', text: 'Hasty generalization' }
+        ],
+        correct: 'A',
+        explanation: 'Citing professional expertise and years of study builds trust and authority—the hallmark of Ethos.'
+      },
+      {
+        benchmark: 'ELA.6.R.3.1',
+        topic: 'Figurative Device vs. Tone Effect',
+        excerpt: '"The relentless summer sun hammered the empty asphalt like a blacksmith’s iron."',
+        prompt: 'Which FAST answer choice properly explains the impact of this simile?',
+        options: [
+          { id: 'A', text: 'It uses the word "like" to compare the sun to a blacksmith’s iron.' },
+          { id: 'B', text: 'It creates a harsh, oppressive tone that emphasizes the punishing heat.' },
+          { id: 'C', text: 'It shows that a blacksmith is working next to the highway.' }
+        ],
+        correct: 'B',
+        explanation: 'FAST questions test EFFECT, not just device definitions! Option B explains how the comparison builds a harsh, oppressive tone.'
+      },
+      {
+        benchmark: 'ELA.6.V.1.3',
+        topic: 'Connotation vs. Denotation',
+        excerpt: 'Sentence 1: "Maya was determined to finish the science fair model." Sentence 2: "Maya was stubborn about changing her science fair model."',
+        prompt: 'How does replacing "determined" with "stubborn" shift the meaning?',
+        options: [
+          { id: 'A', text: 'It changes the dictionary definition from working hard to giving up.' },
+          { id: 'B', text: 'It shifts from an admiring, positive connotation to a critical, inflexible connotation.' },
+          { id: 'C', text: 'Both words carry the exact same emotional feeling.' }
+        ],
+        correct: 'B',
+        explanation: 'Both words describe sticking to a goal (similar denotation), but "determined" feels admirable while "stubborn" feels unreasonable.'
+      },
+      {
+        benchmark: 'ELA.6.R.1.4',
+        topic: 'Sonnet vs. Villanelle Structure',
+        excerpt: 'A 19-line poem repeats two full refrains across five three-line tercets before uniting both refrains at the end of a final quatrain.',
+        prompt: 'How does this villanelle structure typically shape meaning?',
+        options: [
+          { id: 'A', text: 'The echoing refrains intensify a lingering emotion, memory, or obsession.' },
+          { id: 'B', text: 'The final two-line couplet introduces a brand-new topic unrelated to the rest of the poem.' },
+          { id: 'C', text: 'The lack of any repeated sounds creates a random, conversational rhythm.' }
+        ],
+        correct: 'A',
+        explanation: 'A villanelle’s repeating refrains act like an echo, deepening a central emotion or haunting idea across all 19 lines.'
+      },
+      {
+        benchmark: 'ELA.6.R.2.2',
+        topic: 'Central Idea vs. Narrow Detail',
+        excerpt: 'An article explains how sea otters eat sea urchins, which protects kelp forests, which in turn shelter hundreds of fish species and absorb carbon.',
+        prompt: 'Which statement expresses the CENTRAL IDEA rather than a single supporting detail?',
+        options: [
+          { id: 'A', text: 'Sea otters eat spiky sea urchins.' },
+          { id: 'B', text: 'Kelp forests absorb carbon from ocean water.' },
+          { id: 'C', text: 'Sea otters play a vital role in keeping entire coastal ecosystems healthy.' }
+        ],
+        correct: 'C',
+        explanation: 'C covers the whole chain of ideas in the article. A and B are accurate details, but each covers only one piece of the puzzle.'
+      },
+      {
+        benchmark: 'ELA.6.V.1.2',
+        topic: 'Greek & Latin Roots',
+        excerpt: '"Before building the bridge, surveyors conducted a geological inspection of the riverbank."',
+        prompt: 'Using the Greek roots geo- (earth) and -logy (study of), what does "geological" mean?',
+        options: [
+          { id: 'A', text: 'Related to the study of Earth’s rocks and physical structure' },
+          { id: 'B', text: 'Measured over a long period of historical time' },
+          { id: 'C', text: 'Designed using waterproof metal alloys' }
+        ],
+        correct: 'A',
+        explanation: 'Geo- means "earth" and -logy means "study of," so geological refers to studying Earth’s physical rock and soil layers.'
+      },
+      {
+        benchmark: 'ELA.6.R.2.4',
+        topic: 'Ad Populum Fallacy',
+        excerpt: '"Over ten thousand students downloaded this study app last week, so it is guaranteed to be the most accurate study tool ever made!"',
+        prompt: 'Why is this reasoning flawed?',
+        options: [
+          { id: 'A', text: 'It uses Ad Populum—assuming something is accurate simply because it is popular.' },
+          { id: 'B', text: 'It uses abductive reasoning based on scientific lab tests.' },
+          { id: 'C', text: 'It relies too heavily on expert teacher credentials.' }
+        ],
+        correct: 'A',
+        explanation: 'Popularity does not guarantee accuracy! Claiming something is right just because many people do it is the Ad Populum fallacy.'
+      }
+    ];
+
+    // =========================================================================
+    // 3. SPLIT-SCREEN PM2 PRACTICE TEST: 3 PASSAGE SETS & 13 ITEMS
+    // =========================================================================
+    const PASSAGE_SETS = [
+      {
+        id: 0,
+        badge: 'Passage Set 1 • Literary Prose & Villanelle',
+        title: 'Part 1: "The Clockmaker’s Apprentice" & Part 2: "The Lighthouse Keeper’s Watch"',
+        blocks: [
+          { type: 'heading', text: 'Passage 1A: The Clockmaker’s Apprentice (Short Story)' },
+          { type: 'para', id: 'p0-1', text: '1  Rain drummed steadily against the leaded glass of Master Vance’s repair shop while twelve-year-old Julian stared at the disassembled brass gears spread across his velvet mat. For three weeks, Julian had boasted to his classmates that fixing the town hall’s antique chime clock would take him less than an afternoon.' },
+          { type: 'para', id: 'p0-2', text: '2  Now, tiny springs glinted like spilled salt under the desk lamp, and the mainspring refused to catch. Julian’s cheeks burned as he reached for the heavy pliers, determined to force the stubborn pin into place before Master Vance returned from errands.' },
+          { type: 'para', id: 'p0-3', text: '3  "Careful, Julian," a quiet voice said from the doorway. Master Vance shook out his umbrella and stepped closer, examining the bent copper lever. "A clock cannot be bullied into keeping time. When you rush to prove how clever you are, you stop listening to how the pieces actually fit together."' },
+          { type: 'para', id: 'p0-4', text: '4  Julian swallowed his pride, set down the pliers, and picked up the fine tweezers. Working slowly alongside his mentor, he gently realigned each tooth until—at last—a crisp, steady tick echoed through the quiet shop.' },
+          { type: 'heading', text: 'Passage 1B: The Lighthouse Keeper’s Watch (Villanelle)' },
+          { type: 'para', id: 'p0-5', text: 'Line 1: Across the foaming dark, the lantern gleams,\nLine 2: While midnight waves crash cold against the stone,\nLine 3: Steady and true through fierce and howling dreams.' },
+          { type: 'para', id: 'p0-6', text: 'Line 4: No sailor sees the keeper’s quiet schemes,\nLine 5: Or hears the heavy iron staircase groan;\nLine 6: Across the foaming dark, the lantern gleams.' },
+          { type: 'para', id: 'p0-7', text: 'Line 7: Through blinding fog and jagged silver beams,\nLine 8: She trims the wick and guards the coast alone,\nLine 9: Steady and true through fierce and howling dreams.' },
+          { type: 'para', id: 'p0-8', text: 'Line 10: Though harbor towns forget the coastal streams,\nLine 11: Her patient duty stands like ancient bone;\nLine 12: Across the foaming dark, the lantern gleams.' },
+          { type: 'para', id: 'p0-9', text: 'Line 13: The storm may roar and split the timber seams,\nLine 14: Yet faithful light claims darkness for its own,\nLine 15: Steady and true through fierce and howling dreams.' },
+          { type: 'para', id: 'p0-10', text: 'Line 16: And when the dawn brings gold to ocean streams,\nLine 17: Every safe vessel owes that lamp alone:\nLine 18: Across the foaming dark, the lantern gleams,\nLine 19: Steady and true through fierce and howling dreams.' }
+        ]
+      },
+      {
+        id: 1,
+        badge: 'Passage Set 2 • Paired Informational Accounts & Data Feature',
+        title: 'Urban Rooftop Gardens: Cooling Cities or Costly Challenge?',
+        blocks: [
+          { type: 'heading', text: 'Account A: Green Roofs Transform City Skylines' },
+          { type: 'para', id: 'p1-1', text: '1  During scorching Florida summers, dark asphalt roofs absorb intense sunlight, turning city blocks into "heat islands" up to eight degrees warmer than nearby parks. Urban botanist Dr. Elena Ortiz argues that converting flat roofs into living gardens offers a practical solution.' },
+          { type: 'para', id: 'p1-2', text: '2  In a two-year study of twelve downtown buildings, Dr. Ortiz’s team measured surface temperatures before and after planting native sedum and wildflowers. Roofs covered in soil and plants stayed an average of 35°F cooler at midday and reduced indoor air-conditioning energy use by 22 percent. Furthermore, rooftop plots capture rainwater during sudden afternoon storms, easing pressure on city storm drains.' },
+          { type: 'heading', text: 'Account B: Weighing the Structural Costs of Sky Gardens' },
+          { type: 'para', id: 'p1-3', text: '3  While rooftop gardens look inviting in photographs, municipal engineer Marcus Thorne cautions that older buildings cannot safely support wet soil without expensive steel reinforcement. "A single rainstorm can triple the weight of rooftop planters," Thorne notes, estimating that structural upgrades add $45,000 to $90,000 to a mid-sized building project.' },
+          { type: 'para', id: 'p1-4', text: '4  Thorne also points out that some advocates claim rooftop farms will replace traditional grocery stores—a hasty generalization ignoring limited rooftop square footage. Instead, he recommends pairing cool white reflective roof coatings with ground-level neighborhood pocket parks to achieve similar cooling at half the cost.' },
+          { type: 'heading', text: 'Text Feature: Midday Roof Temperature & Runoff Comparison' },
+          { type: 'para', id: 'p1-5', text: '• Traditional Dark Asphalt Roof: 158°F Midday Surface Temp | Captures 10% of Stormwater | Lifespan: 15–20 Years\n• White Reflective Cool Roof: 112°F Midday Surface Temp | Captures 10% of Stormwater | Lifespan: 20–25 Years\n• Living Rooftop Garden: 96°F Midday Surface Temp | Captures 65% of Stormwater | Lifespan: 35–40 Years' }
+        ]
+      },
+      {
+        id: 2,
+        badge: 'Passage Set 3 • Civic Youth Council Speech',
+        title: 'Building Smarter Digital Citizens in Middle School',
+        blocks: [
+          { type: 'heading', text: 'Remarks by Maya Lin, Grade 6 Student Representative' },
+          { type: 'para', id: 'p2-1', text: '1  Members of the School Board, parents, and fellow students: Last month, a rumor about a fake school closure spread across three group chats in less than twenty minutes, causing dozens of families to scramble needlessly before sunrise.' },
+          { type: 'para', id: 'p2-2', text: '2  As chair of our Middle School Digital Citizenship Committee, I have spent the past semester reviewing media literacy programs with our school librarians and computer science teachers. Our findings are clear: sixth graders are eager to use technology responsibly, yet we rarely receive hands-on training in verifying online sources.' },
+          { type: 'para', id: 'p2-3', text: '3  According to a 2026 national youth media survey, 78 percent of middle school students encounter altered images or misleading headlines each week, yet fewer than one in three know how to perform a reverse-image check or trace a primary source. Adding a four-week "Verify Before You Share" workshop to sixth-grade advisory classes would directly close that gap.' },
+          { type: 'para', id: 'p2-4', text: '4  Some critics dismiss media literacy workshops simply by claiming that "everybody already knows how to use a smartphone." That bandwagon assumption confuses tapping a screen with evaluating truth. Teaching students to pause, inspect evidence, and protect their peers from misinformation is an investment every school can afford.' }
+        ]
+      }
+    ];
+
+    const TEST_QUESTIONS = [
+      {
+        id: 1,
+        benchmark: 'ELA.6.R.1.1',
+        category: 'Prose & Poetry',
+        passageSet: 0,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'In Passage 1A ("The Clockmaker’s Apprentice"), how does the setting of the repair shop interact with Julian’s character traits to advance the plot?',
+        options: [
+          { id: 'A', text: 'The tiny, delicate clock parts expose Julian’s impatience, leading him to nearly damage the lever until Master Vance intervenes.' },
+          { id: 'B', text: 'The loud rainstorm outside prevents Julian from hearing Master Vance enter the doorway.' },
+          { id: 'C', text: 'The velvet mat causes the springs to bounce away, forcing Julian to buy new tools.' },
+          { id: 'D', text: 'The quiet shop makes Julian fall asleep before he can finish inspecting the chime.' }
+        ],
+        correct: ['A'],
+        explanation: 'Julian’s boastful impatience collides with the delicate mechanical setting (tiny springs and copper lever), creating the conflict that forces him to slow down and learn patience.'
+      },
+      {
+        id: 2,
+        benchmark: 'ELA.6.R.1.2',
+        category: 'Prose & Poetry',
+        passageSet: 0,
+        type: 'Part A • Theme',
+        multiSelect: false,
+        stem: 'PART A: Which statement best expresses a central theme shared by Passage 1A and Passage 1B?',
+        options: [
+          { id: 'A', text: 'Working alone is always faster than accepting advice from a mentor.' },
+          { id: 'B', text: 'Patient, steady dedication accomplishes meaningful work even without public praise.' },
+          { id: 'C', text: 'Modern machines are far more reliable than antique clocks and lanterns.' },
+          { id: 'D', text: 'Coastal storms and rainy afternoons make difficult jobs nearly impossible.' }
+        ],
+        correct: ['B'],
+        explanation: 'Both Julian carefully aligning clock teeth and the lighthouse keeper tending the lamp through unseen storms illustrate patient, steady dedication.'
+      },
+      {
+        id: 3,
+        benchmark: 'ELA.6.R.1.3',
+        category: 'Prose & Poetry',
+        passageSet: 0,
+        type: 'Part B • Perspective',
+        multiSelect: false,
+        stem: 'PART B: How does the third-person limited point of view in Passage 1A influence the reader’s understanding of Julian?',
+        options: [
+          { id: 'A', text: 'It reveals Master Vance’s secret plan to close the repair shop permanently.' },
+          { id: 'B', text: 'It allows readers to feel Julian’s embarrassment ("cheeks burned") and internal shift from pride to humility.' },
+          { id: 'C', text: 'It shows what Julian’s classmates are saying about him at school during the storm.' },
+          { id: 'D', text: 'It proves that Julian already knew how to fix the clock before entering the shop.' }
+        ],
+        correct: ['B'],
+        explanation: 'Focusing closely on Julian’s internal thoughts and physical reactions ("cheeks burned", "swallowed his pride") lets the reader experience his shift from boastfulness to patience.'
+      },
+      {
+        id: 4,
+        benchmark: 'ELA.6.R.1.4',
+        category: 'Prose & Poetry',
+        passageSet: 0,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'How does the villanelle form of Passage 1B ("The Lighthouse Keeper’s Watch") contribute to the poem’s meaning?',
+        options: [
+          { id: 'A', text: 'The repeating refrains ("Across the foaming dark, the lantern gleams" / "Steady and true...") mimic the rhythmic, unbroken sweep of the lighthouse beam.' },
+          { id: 'B', text: 'The sudden shift to unrhymed lines in the final stanza shows that the lighthouse lantern goes out at dawn.' },
+          { id: 'C', text: 'The fourteen-line structure builds up to a humorous twist in the closing couplet.' },
+          { id: 'D', text: 'The lack of stanza breaks creates confusion about whether the storm ever ends.' }
+        ],
+        correct: ['A'],
+        explanation: 'In a 19-line villanelle, the alternating refrains return like a steady pulse, reinforcing the keeper’s unwavering reliability through the night.'
+      },
+      {
+        id: 5,
+        benchmark: 'ELA.6.R.3.1',
+        category: 'Across Genres & Vocabulary',
+        passageSet: 0,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'In Passage 1B, how does the figurative phrase "Her patient duty stands like ancient bone" (line 11) contribute to the poem’s tone?',
+        options: [
+          { id: 'A', text: 'It creates a frightened, eerie tone by suggesting the tower is haunted.' },
+          { id: 'B', text: 'It establishes a respectful, enduring tone that compares her commitment to a strong, lasting foundation.' },
+          { id: 'C', text: 'It creates a lighthearted tone showing that the keeper dislikes her chores.' },
+          { id: 'D', text: 'It suggests the lighthouse is crumbling and needs immediate demolition.' }
+        ],
+        correct: ['B'],
+        explanation: 'Comparing her duty to "ancient bone" emphasizes strength, permanence, and deep respect for her quiet service.'
+      },
+      {
+        id: 6,
+        benchmark: 'ELA.6.R.3.3',
+        category: 'Across Genres & Vocabulary',
+        passageSet: 0,
+        type: 'Multi-Select (Select TWO)',
+        multiSelect: true,
+        stem: 'Select TWO ways the authors of Passage 1A and Passage 1B approach the idea of careful work differently.',
+        options: [
+          { id: 'A', text: 'Passage 1A uses dialogue between a mentor and apprentice to show a character learning patience after a mistake.' },
+          { id: 'B', text: 'Passage 1B uses poetic repetition and ocean imagery to honor someone who already practices steady devotion.' },
+          { id: 'C', text: 'Passage 1A argues that clockmaking is obsolete, whereas Passage 1B argues that lighthouses are too expensive.' },
+          { id: 'D', text: 'Passage 1A is written in strict ABA rhyme, whereas Passage 1B uses stage directions.' },
+          { id: 'E', text: 'Both passages rely on statistical charts to prove that night shifts are difficult.' }
+        ],
+        correct: ['A', 'B'],
+        explanation: 'A and B accurately contrast how each genre delivers the message: Passage 1A uses narrative dialogue and character growth, while Passage 1B uses lyrical repetition and imagery.'
+      },
+      {
+        id: 7,
+        benchmark: 'ELA.6.R.2.1',
+        category: 'Informational Text',
+        passageSet: 1,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'How does the bulleted text feature ("Midday Roof Temperature & Runoff Comparison") add meaning to Passage Set 2?',
+        options: [
+          { id: 'A', text: 'It proves that traditional dark asphalt roofs last longer than any other roof type.' },
+          { id: 'B', text: 'It visually compares the cooling, stormwater capture, and lifespan trade-offs of all three roofing options mentioned across Accounts A and B.' },
+          { id: 'C', text: 'It shows that white reflective roofs capture the highest percentage of stormwater runoff.' },
+          { id: 'D', text: 'It contradicts Dr. Ortiz’s claim that living rooftop gardens stay cooler than asphalt roofs.' }
+        ],
+        correct: ['B'],
+        explanation: 'The text feature synthesizes exact metrics (temperature, stormwater capture, and lifespan) across all three options discussed in Accounts A and B.'
+      },
+      {
+        id: 8,
+        benchmark: 'ELA.6.R.2.2',
+        category: 'Informational Text',
+        passageSet: 1,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'Which sentence best states the central idea of Account A ("Green Roofs Transform City Skylines")?',
+        options: [
+          { id: 'A', text: 'Sedum and native wildflowers are the only plants capable of surviving Florida summers.' },
+          { id: 'B', text: 'Living rooftop gardens significantly cool urban buildings, lower energy use, and reduce stormwater runoff.' },
+          { id: 'C', text: 'City storm drains overflow every afternoon during the summer months.' },
+          { id: 'D', text: 'Dr. Elena Ortiz studied twelve downtown buildings over a two-year period.' }
+        ],
+        correct: ['B'],
+        explanation: 'B captures the overarching claim supported by every detail in Account A, whereas A, C, and D are narrow details.'
+      },
+      {
+        id: 9,
+        benchmark: 'ELA.6.R.2.3',
+        category: 'Informational Text',
+        passageSet: 1,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'How does Marcus Thorne’s purpose in Account B differ from Dr. Elena Ortiz’s purpose in Account A?',
+        options: [
+          { id: 'A', text: 'Thorne focuses on structural weight, renovation costs, and lower-cost alternatives, whereas Ortiz highlights environmental and energy-saving benefits.' },
+          { id: 'B', text: 'Thorne argues that cities never experience heat islands, whereas Ortiz argues that parks make cities warmer.' },
+          { id: 'C', text: 'Thorne promotes building rooftop grocery stores, whereas Ortiz opposes planting native wildflowers.' },
+          { id: 'D', text: 'Thorne relies solely on personal opinions, whereas Ortiz refuses to include any measurements.' }
+        ],
+        correct: ['A'],
+        explanation: 'Both authors examine urban heat solutions, but Ortiz emphasizes ecological and energy benefits while Thorne highlights engineering weight limits and budget trade-offs.'
+      },
+      {
+        id: 10,
+        benchmark: 'ELA.6.R.2.4',
+        category: 'Informational Text',
+        passageSet: 1,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'In paragraph 4 of Account B, why does Marcus Thorne describe the claim that "rooftop farms will replace traditional grocery stores" as a hasty generalization?',
+        options: [
+          { id: 'A', text: 'Because it draws a sweeping conclusion about feeding entire cities without considering the small size of most rooftops.' },
+          { id: 'B', text: 'Because it attacks Dr. Ortiz’s personal character rather than her scientific research.' },
+          { id: 'C', text: 'Because it applies a universal law of physics to a single building.' },
+          { id: 'D', text: 'Because grocery stores are never located near downtown parks.' }
+        ],
+        correct: ['A'],
+        explanation: 'A hasty generalization jumps to a broad, exaggerated conclusion based on insufficient evidence—ignoring limited rooftop square footage.'
+      },
+      {
+        id: 11,
+        benchmark: 'ELA.6.R.3.4',
+        category: 'Across Genres & Vocabulary',
+        passageSet: 2,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'In paragraph 2 of Passage Set 3, how does Maya Lin use ethos to strengthen her speech to the School Board?',
+        options: [
+          { id: 'A', text: 'She cites statistics from a 2026 national survey on altered images.' },
+          { id: 'B', text: 'She establishes her credibility by noting her role as Digital Citizenship Committee chair and her semester-long collaboration with librarians and teachers.' },
+          { id: 'C', text: 'She describes parents scrambling needlessly before sunrise.' },
+          { id: 'D', text: 'She accuses critics of refusing to own smartphones.' }
+        ],
+        correct: ['B'],
+        explanation: 'Highlighting her leadership role and semester of research alongside school librarians builds trust and credibility (Ethos).'
+      },
+      {
+        id: 12,
+        benchmark: 'ELA.6.V.1.2',
+        category: 'Across Genres & Vocabulary',
+        passageSet: 2,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'In paragraph 4 of Passage Set 3, the word "evaluating" contains the Latin root val- (meaning "worth" or "strength"). What does "evaluating truth" mean in this context?',
+        options: [
+          { id: 'A', text: 'Quickly forwarding a message to friends' },
+          { id: 'B', text: 'Carefully judging the reliability and worth of information' },
+          { id: 'C', text: 'Deleting social media accounts permanently' },
+          { id: 'D', text: 'Memorizing smartphone keyboard shortcuts' }
+        ],
+        correct: ['B'],
+        explanation: 'Root val- ("worth/value") + context ("pause, inspect evidence") shows that "evaluating truth" means carefully judging whether information is trustworthy.'
+      },
+      {
+        id: 13,
+        benchmark: 'ELA.6.V.1.3',
+        category: 'Across Genres & Vocabulary',
+        passageSet: 2,
+        type: 'Multiple Choice',
+        multiSelect: false,
+        stem: 'In paragraph 4 of Passage Set 3, what does the phrase "bandwagon assumption" suggest about the critics’ argument?',
+        options: [
+          { id: 'A', text: 'It is backed by rigorous laboratory experiments.' },
+          { id: 'B', text: 'It is a lazy, overly popular belief that assumes everyone automatically possesses a skill just because technology is common.' },
+          { id: 'C', text: 'It refers to musicians riding in a school parade.' },
+          { id: 'D', text: 'It proves that sixth graders do not need advisory classes.' }
+        ],
+        correct: ['B'],
+        explanation: 'In context, "bandwagon assumption" carries a critical connotation, showing that the critics rely on a common but flawed assumption rather than real evidence.'
+      }
+    ];
+
+    // =========================================================================
+    // 4. APPLICATION STATE
+    // =========================================================================
+    const appState = {
+      activeMode: 'explorer',
+      explorer: {
+        categoryFilter: 'ALL',
+        selectedCode: 'ELA.6.R.1.1'
+      },
+      game: {
+        roundIndex: 0,
+        score: 0,
+        streak: 0,
+        answered: false,
+        autoRead: false
+      },
+      test: {
+        currentQIndex: 0,
+        activePassageSet: 0,
+        answers: {}, // { questionId: ['A'] }
+        submitted: false
+      }
+    };
+
+    // =========================================================================
+    // 5. STRICT GOOGLE ENGLISH TEXT-TO-SPEECH (TTS) ENGINE
+    // =========================================================================
+    const ttsState = {
+      synth: window.speechSynthesis,
+      voices: [],
+      selectedVoiceURI: null,
+      rate: 1.0,
+      isPlaying: false,
+      isPaused: false,
+      queueId: 0
+    };
+
+    function populateGoogleEnglishVoices() {
+      if (!ttsState.synth) return;
+      const allVoices = ttsState.synth.getVoices();
+      if (!allVoices.length) return;
+
+      const select = document.getElementById('tts-voice-select');
+      if (!select) return;
+
+      // Strictly filter for Google English voices
+      const googleEnglish = allVoices.filter(v => {
+        const name = (v.name || '').toLowerCase();
+        const lang = (v.lang || '').toLowerCase();
+        return name.includes('google') && lang.startsWith('en');
+      });
+
+      let chosenList = [];
+      let usingFallback = false;
+
+      if (googleEnglish.length > 0) {
+        // Prioritize Google US English first, followed by Google UK English & other Google English voices
+        chosenList = [...googleEnglish].sort((a, b) => {
+          const aUS = a.lang.toLowerCase().replace('_', '-').includes('en-us') || a.name.toLowerCase().includes('us');
+          const bUS = b.lang.toLowerCase().replace('_', '-').includes('en-us') || b.name.toLowerCase().includes('us');
+          if (aUS && !bUS) return -1;
+          if (!aUS && bUS) return 1;
+          return a.name.localeCompare(b.name);
+        });
+      } else {
+        // Graceful fallback ONLY if zero Google voices exist in the browser
+        usingFallback = true;
+        const localEn = allVoices.filter(v => (v.lang || '').toLowerCase().startsWith('en'));
+        chosenList = localEn.length > 0 ? [localEn[0]] : [allVoices[0]];
+      }
+
+      ttsState.voices = chosenList;
+
+      const stillValid = chosenList.some(v => v.voiceURI === ttsState.selectedVoiceURI);
+      if (!stillValid && chosenList.length > 0) {
+        ttsState.selectedVoiceURI = chosenList[0].voiceURI;
+      }
+
+      select.innerHTML = '';
+      chosenList.forEach(voice => {
+        const opt = document.createElement('option');
+        opt.value = voice.voiceURI;
+        opt.className = 'bg-slate-900 text-white';
+        opt.textContent = usingFallback
+          ? `Fallback: ${voice.name} (${voice.lang})`
+          : `${voice.name} (${voice.lang})`;
+        if (voice.voiceURI === ttsState.selectedVoiceURI) {
+          opt.selected = true;
+        }
+        select.appendChild(opt);
+      });
+    }
+
+    function initTTS() {
+      if (!('speechSynthesis' in window)) {
+        const bar = document.getElementById('tts-audio-bar');
+        if (bar) {
+          bar.innerHTML = `
+            <div class="max-w-7xl mx-auto px-4 py-2 text-xs text-amber-300 flex items-center gap-2">
+              <i data-lucide="alert-circle" class="w-4 h-4"></i>
+              <span>Text-to-Speech is not supported in this browser. All study and quiz tools remain active.</span>
+            </div>
+          `;
+          lucide.createIcons();
+        }
+        return;
+      }
+
+      populateGoogleEnglishVoices();
+      if (typeof window.speechSynthesis.onvoiceschanged !== 'undefined') {
+        window.speechSynthesis.onvoiceschanged = populateGoogleEnglishVoices;
+      }
+    }
+
+    function changeTtsRate(val) {
+      ttsState.rate = parseFloat(val) || 1.0;
+      if (ttsState.isPlaying) {
+        showToast(`Speech speed set to ${ttsState.rate}x for next segment.`);
+      }
+    }
+
+    function changeTtsVoice(uri) {
+      ttsState.selectedVoiceURI = uri;
+    }
+
+    function clearTtsHighlights() {
+      document.querySelectorAll('.tts-active-para').forEach(el => {
+        el.classList.remove('tts-active-para');
+      });
+    }
+
+    function updateTtsControlsUI(status) {
+      const dot = document.getElementById('tts-status-dot');
+      const text = document.getElementById('tts-status-text');
+      const pauseBtn = document.getElementById('tts-pause-btn');
+      const stopBtn = document.getElementById('tts-stop-btn');
+      const pauseIcon = document.getElementById('tts-pause-icon');
+      const pauseLabel = document.getElementById('tts-pause-label');
+
+      if (!dot || !text) return;
+
+      if (status === 'playing') {
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-ping';
+        text.textContent = 'Reading Aloud...';
+        pauseBtn.disabled = false;
+        stopBtn.disabled = false;
+        pauseIcon.setAttribute('data-lucide', 'pause');
+        pauseLabel.textContent = 'Pause';
+      } else if (status === 'paused') {
+        dot.className = 'w-2 h-2 rounded-full bg-amber-400';
+        text.textContent = 'Paused';
+        pauseBtn.disabled = false;
+        stopBtn.disabled = false;
+        pauseIcon.setAttribute('data-lucide', 'play');
+        pauseLabel.textContent = 'Resume';
+      } else {
+        dot.className = 'w-2 h-2 rounded-full bg-slate-400';
+        text.textContent = 'Ready to Read';
+        pauseBtn.disabled = true;
+        stopBtn.disabled = true;
+        pauseIcon.setAttribute('data-lucide', 'pause');
+        pauseLabel.textContent = 'Pause';
+      }
+      lucide.createIcons();
+    }
+
+    function stopTTS() {
+      ttsState.queueId++;
+      ttsState.isPlaying = false;
+      ttsState.isPaused = false;
+      clearTtsHighlights();
+      if (ttsState.synth) {
+        ttsState.synth.cancel();
+      }
+      updateTtsControlsUI('idle');
+    }
+
+    function togglePauseResumeTTS() {
+      if (!ttsState.synth || !ttsState.isPlaying) return;
+      if (ttsState.isPaused) {
+        ttsState.synth.resume();
+        ttsState.isPaused = false;
+        updateTtsControlsUI('playing');
+      } else {
+        ttsState.synth.pause();
+        ttsState.isPaused = true;
+        updateTtsControlsUI('paused');
+      }
+    }
+
+    /**
+     * Speaks an array of segments: [{ text, elementId, pauseAfter }]
+     * Synchronizes yellow paragraph highlights (.tts-active-para) cleanly.
+     */
+    function speakQueue(segments) {
+      if (!ttsState.synth) {
+        showToast('Text-to-Speech is unavailable in this browser.');
+        return;
+      }
+
+      stopTTS();
+      const runId = ++ttsState.queueId;
+      ttsState.isPlaying = true;
+      ttsState.isPaused = false;
+      updateTtsControlsUI('playing');
+
+      const voiceObj = ttsState.voices.find(v => v.voiceURI === ttsState.selectedVoiceURI) || ttsState.voices[0];
+      let idx = 0;
+
+      function nextSegment() {
+        if (runId !== ttsState.queueId) return;
+        if (idx >= segments.length) {
+          ttsState.isPlaying = false;
+          ttsState.isPaused = false;
+          clearTtsHighlights();
+          updateTtsControlsUI('idle');
+          return;
+        }
+
+        const seg = segments[idx];
+        const utter = new SpeechSynthesisUtterance(seg.text);
+        if (voiceObj) utter.voice = voiceObj;
+        utter.rate = ttsState.rate;
+        utter.pitch = 1.0;
+
+        utter.onstart = () => {
+          if (runId !== ttsState.queueId) return;
+          clearTtsHighlights();
+          if (seg.elementId) {
+            const el = document.getElementById(seg.elementId);
+            if (el) {
+              el.classList.add('tts-active-para');
+              el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          }
+        };
+
+        utter.onend = () => {
+          if (runId !== ttsState.queueId) return;
+          idx++;
+          setTimeout(nextSegment, seg.pauseAfter || 180);
+        };
+
+        utter.onerror = () => {
+          if (runId !== ttsState.queueId) return;
+          idx++;
+          nextSegment();
+        };
+
+        ttsState.synth.speak(utter);
+      }
+
+      nextSegment();
+    }
+
+    // Mode-Specific TTS Triggers
+    function speakSelectedBenchmark() {
+      const b = BENCHMARKS.find(item => item.code === appState.explorer.selectedCode);
+      if (!b) return;
+      speakQueue([
+        { text: `${b.code}. ${b.title}. ${b.categoryLabel}.`, pauseAfter: 260 },
+        { text: b.summary, pauseAfter: 260 },
+        { text: `Mental Formula: ${b.formula.replace(/→/g, 'leads to').replace(/←/g, 'supported by')}`, pauseAfter: 260 },
+        { text: `Quick Example: ${b.example}`, pauseAfter: 260 },
+        { text: `FAST Answer Picker Rule: ${b.picker}`, pauseAfter: 260 },
+        { text: b.trap }
+      ]);
+    }
+
+    function toggleGameAutoRead() {
+      appState.game.autoRead = !appState.game.autoRead;
+      const btn = document.getElementById('game-autoread-btn');
+      const icon = document.getElementById('game-autoread-icon');
+      const label = document.getElementById('game-autoread-label');
+
+      if (appState.game.autoRead) {
+        btn.className = 'px-3 py-2 rounded-xl border border-indigo-300 bg-indigo-50 text-indigo-800 text-xs font-bold flex items-center gap-1.5 transition';
+        icon.setAttribute('data-lucide', 'volume-2');
+        icon.className = 'w-4 h-4 text-indigo-600';
+        label.textContent = 'Auto-Read: On';
+        speakGameCard();
+      } else {
+        btn.className = 'px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center gap-1.5 transition';
+        icon.setAttribute('data-lucide', 'volume-x');
+        icon.className = 'w-4 h-4 text-slate-400';
+        label.textContent = 'Auto-Read: Off';
+        stopTTS();
+      }
+      lucide.createIcons();
+    }
+
+    function speakGameCard() {
+      const round = TRAP_BUSTER_ROUNDS[appState.game.roundIndex];
+      if (!round) return;
+      const segments = [
+        { text: `${round.topic}. ${round.excerpt}`, pauseAfter: 280 },
+        { text: round.questionPrompt || round.prompt, pauseAfter: 240 }
+      ];
+      round.options.forEach(opt => {
+        segments.push({ text: `Option ${opt.id}: ${opt.text}`, pauseAfter: 200 });
+      });
+      speakQueue(segments);
+    }
+
+    function speakGameFeedback() {
+      const title = document.getElementById('game-feedback-title').textContent;
+      const exp = document.getElementById('game-feedback-explanation').textContent;
+      speakQueue([
+        { text: title, pauseAfter: 220 },
+        { text: exp }
+      ]);
+    }
+
+    function speakActivePassageSet() {
+      const set = PASSAGE_SETS[appState.test.activePassageSet];
+      if (!set) return;
+      const segments = [
+        { text: set.title, pauseAfter: 320 }
+      ];
+      set.blocks.forEach(block => {
+        if (block.type === 'heading') {
+          segments.push({ text: block.text, pauseAfter: 260 });
+        } else {
+          // Strip leading paragraph numbers or "Line X:" prefixes for natural reading flow
+          const cleanSpeechText = block.text
+            .replace(/^\d+\s+/, '')
+            .replace(/Line \d+:\s*/g, '');
+          segments.push({
+            text: cleanSpeechText,
+            elementId: block.id,
+            pauseAfter: 240
+          });
+        }
+      });
+      speakQueue(segments);
+    }
+
+    function speakCurrentTestQuestion() {
+      const q = TEST_QUESTIONS[appState.test.currentQIndex];
+      if (!q) return;
+      const segments = [
+        { text: `Question ${q.id}. ${q.stem}`, pauseAfter: 300 }
+      ];
+      if (q.multiSelect) {
+        segments.push({ text: 'Select two correct answers.', pauseAfter: 240 });
+      }
+      q.options.forEach(opt => {
+        segments.push({ text: `Option ${opt.id}: ${opt.text}`, pauseAfter: 200 });
+      });
+      speakQueue(segments);
+    }
+
+    function speakTestItemRationale(qIndex) {
+      const q = TEST_QUESTIONS[qIndex];
+      if (!q) return;
+      speakQueue([
+        { text: `Question ${q.id} Rationale. ${q.explanation}` }
+      ]);
+    }
+
+    // =========================================================================
+    // 6. MODE NAVIGATION & TOAST UTILITY
+    // =========================================================================
+    function switchMode(mode) {
+      stopTTS();
+      appState.activeMode = mode;
+
+      ['explorer', 'trapbuster', 'practice'].forEach(m => {
+        const btn = document.getElementById(`nav-${m}`);
+        const view = document.getElementById(`view-${m}`);
+        if (m === mode) {
+          btn.className = 'mode-tab flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition whitespace-nowrap bg-indigo-600 text-white shadow-sm';
+          view.classList.remove('hidden');
+        } else {
+          btn.className = 'mode-tab flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition whitespace-nowrap text-slate-300 hover:text-white hover:bg-slate-700/60';
+          view.classList.add('hidden');
+        }
+      });
+      lucide.createIcons();
+    }
+
+    function showToast(msg) {
+      const banner = document.getElementById('toast-banner');
+      document.getElementById('toast-text').textContent = msg;
+      banner.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        banner.classList.add('translate-y-20', 'opacity-0');
+      }, 2800);
+    }
+
+    // =========================================================================
+    // 7. MODE 1: 13 BENCHMARKS EXPLORER LOGIC
+    // =========================================================================
+    function filterBenchmarks(category) {
+      appState.explorer.categoryFilter = category;
+
+      document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+        if (btn.dataset.cat === category) {
+          btn.className = 'cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-slate-900 text-white shadow-sm';
+        } else {
+          btn.className = 'cat-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-slate-100 text-slate-700 hover:bg-slate-200';
+        }
+      });
+
+      const filtered = category === 'ALL'
+        ? BENCHMARKS
+        : BENCHMARKS.filter(b => b.category === category);
+
+      if (!filtered.some(b => b.code === appState.explorer.selectedCode) && filtered.length > 0) {
+        appState.explorer.selectedCode = filtered[0].code;
+      }
+
+      renderBenchmarksGrid();
+      renderBenchmarkDetail();
+    }
+
+    function renderBenchmarksGrid() {
+      const grid = document.getElementById('benchmarks-grid');
+      grid.innerHTML = '';
+
+      const list = appState.explorer.categoryFilter === 'ALL'
+        ? BENCHMARKS
+        : BENCHMARKS.filter(b => b.category === appState.explorer.categoryFilter);
+
+      list.forEach(b => {
+        const isSelected = b.code === appState.explorer.selectedCode;
+
+        let catBadgeColor = 'bg-indigo-50 text-indigo-700 border-indigo-200';
+        if (b.category === 'Informational Text') catBadgeColor = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+        else if (b.category === 'Across Genres & Vocabulary') catBadgeColor = 'bg-amber-50 text-amber-800 border-amber-200';
+
+        const card = document.createElement('button');
+        card.onclick = () => {
+          stopTTS();
+          appState.explorer.selectedCode = b.code;
+          renderBenchmarksGrid();
+          renderBenchmarkDetail();
+        };
+
+        card.className = `text-left p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-2.5 ${
+          isSelected
+            ? 'bg-indigo-50/70 border-indigo-600 shadow-sm ring-1 ring-indigo-600'
+            : 'bg-white border-slate-200 hover:border-indigo-300 hover:shadow-sm'
+        }`;
+
+        card.innerHTML = `
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2 py-0.5 rounded font-mono text-xs font-extrabold ${
+                isSelected ? 'bg-indigo-700 text-white' : 'bg-slate-100 text-slate-800'
+              }">${b.code}</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${catBadgeColor}">${b.category}</span>
+            </div>
+            <h4 class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">${b.title}</h4>
+            <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">${b.summary}</p>
+          </div>
+          <div class="pt-1 flex items-center justify-between text-[11px] font-bold ${
+            isSelected ? 'text-indigo-700' : 'text-slate-400'
+          }">
+            <span>Inspect Formula &amp; Trap</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function renderBenchmarkDetail() {
+      const b = BENCHMARKS.find(item => item.code === appState.explorer.selectedCode) || BENCHMARKS[0];
+      document.getElementById('detail-code').textContent = b.code;
+      document.getElementById('detail-category').textContent = b.categoryLabel;
+      document.getElementById('detail-title').textContent = b.title;
+      document.getElementById('detail-summary').textContent = b.summary;
+      document.getElementById('detail-formula').textContent = b.formula;
+      document.getElementById('detail-example').textContent = b.example;
+      document.getElementById('detail-picker').textContent = b.picker;
+      document.getElementById('detail-trap').textContent = b.trap;
+    }
+
+    // =========================================================================
+    // 8. MODE 2: ANSWER PICKER & TRAP-BUSTER GAME LOGIC
+    // =========================================================================
+    function renderGameRound() {
+      stopTTS();
+      const idx = appState.game.roundIndex;
+      const round = TRAP_BUSTER_ROUNDS[idx];
+
+      document.getElementById('game-round-counter').textContent = `${idx + 1} of ${TRAP_BUSTER_ROUNDS.length}`;
+      document.getElementById('game-score-counter').textContent = `${appState.game.score} of ${TRAP_BUSTER_ROUNDS.length}`;
+      document.getElementById('game-streak-counter').textContent = `${appState.game.streak} 🔥`;
+      document.getElementById('game-progress-bar').style.width = `${((idx + 1) / TRAP_BUSTER_ROUNDS.length) * 100}%`;
+
+      document.getElementById('game-benchmark-tag').textContent = round.benchmark;
+      document.getElementById('game-trap-topic').textContent = round.topic;
+      document.getElementById('game-excerpt-box').textContent = round.excerpt;
+      document.getElementById('game-question-prompt').textContent = round.prompt;
+
+      appState.game.answered = false;
+      const optionsGrid = document.getElementById('game-options-grid');
+      optionsGrid.innerHTML = '';
+
+      round.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.id = `game-opt-${opt.id}`;
+        btn.onclick = () => submitGameAnswer(opt.id);
+        btn.className = 'game-opt-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 transition-all flex items-start gap-3';
+        btn.innerHTML = `
+          <span class="w-7 h-7 rounded-full border-2 border-slate-300 bg-white text-slate-700 font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">
+            ${opt.id}
+          </span>
+          <span class="text-sm sm:text-base font-semibold text-slate-800 leading-snug">${opt.text}</span>
+        `;
+        optionsGrid.appendChild(btn);
+      });
+
+      document.getElementById('game-feedback-banner').classList.add('hidden');
+      document.getElementById('game-next-btn-label').textContent =
+        idx === TRAP_BUSTER_ROUNDS.length - 1 ? 'See Final Score' : 'Next Round';
+
+      lucide.createIcons();
+
+      if (appState.game.autoRead) {
+        speakGameCard();
+      }
+    }
+
+    function submitGameAnswer(selectedId) {
+      if (appState.game.answered) return;
+      appState.game.answered = true;
+
+      const round = TRAP_BUSTER_ROUNDS[appState.game.roundIndex];
+      const isCorrect = selectedId === round.correct;
+
+      if (isCorrect) {
+        appState.game.score++;
+        appState.game.streak++;
+      } else {
+        appState.game.streak = 0;
+      }
+
+      document.getElementById('game-score-counter').textContent = `${appState.game.score} of ${TRAP_BUSTER_ROUNDS.length}`;
+      document.getElementById('game-streak-counter').textContent = `${appState.game.streak} 🔥`;
+
+      // Highlight buttons
+      round.options.forEach(opt => {
+        const btn = document.getElementById(`game-opt-${opt.id}`);
+        btn.disabled = true;
+        if (opt.id === round.correct) {
+          btn.className = 'w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 flex items-start gap-3';
+        } else if (opt.id === selectedId && !isCorrect) {
+          btn.className = 'w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-50 flex items-start gap-3';
+        } else {
+          btn.className = 'w-full text-left p-4 rounded-xl border-2 border-slate-200 opacity-55 flex items-start gap-3';
+        }
+      });
+
+      // Show Feedback Banner
+      const banner = document.getElementById('game-feedback-banner');
+      const icon = document.getElementById('game-feedback-icon');
+      const title = document.getElementById('game-feedback-title');
+      const exp = document.getElementById('game-feedback-explanation');
+
+      banner.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-950', 'bg-rose-50', 'border-rose-200', 'text-rose-950');
+
+      if (isCorrect) {
+        banner.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-950');
+        icon.innerHTML = '<i data-lucide="check-circle-2" class="w-6 h-6 text-emerald-600"></i>';
+        title.textContent = `Trap Busted! Option ${round.correct} is correct.`;
+      } else {
+        banner.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-950');
+        icon.innerHTML = '<i data-lucide="x-circle" class="w-6 h-6 text-rose-600"></i>';
+        title.textContent = `Caught in a Trap! Correct Answer: Option ${round.correct}`;
+      }
+      exp.textContent = round.explanation;
+      lucide.createIcons();
+
+      if (appState.game.autoRead) {
+        speakGameFeedback();
+      }
+    }
+
+    function nextGameRound() {
+      if (appState.game.roundIndex < TRAP_BUSTER_ROUNDS.length - 1) {
+        appState.game.roundIndex++;
+        renderGameRound();
+      } else {
+        stopTTS();
+        document.getElementById('game-active-card').classList.add('hidden');
+        document.getElementById('game-complete-card').classList.remove('hidden');
+        document.getElementById('game-final-summary').textContent =
+          `You busted ${appState.game.score} of ${TRAP_BUSTER_ROUNDS.length} FAST traps!`;
+        lucide.createIcons();
+      }
+    }
+
+    function restartGame() {
+      appState.game.roundIndex = 0;
+      appState.game.score = 0;
+      appState.game.streak = 0;
+      appState.game.answered = false;
+      document.getElementById('game-complete-card').classList.add('hidden');
+      document.getElementById('game-active-card').classList.remove('hidden');
+      renderGameRound();
+    }
+
+    // =========================================================================
+    // 9. MODE 3: SPLIT-SCREEN PM2 PRACTICE TEST LOGIC
+    // =========================================================================
+    function selectPassageSet(setIndex) {
+      stopTTS();
+      appState.test.activePassageSet = setIndex;
+
+      [0, 1, 2].forEach(i => {
+        const tab = document.getElementById(`passage-tab-${i}`);
+        if (i === setIndex) {
+          tab.className = 'passage-tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-indigo-700 shadow-sm border border-slate-200';
+        } else {
+          tab.className = 'passage-tab-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900';
+        }
+      });
+
+      const set = PASSAGE_SETS[setIndex];
+      const reader = document.getElementById('test-passage-reader');
+      reader.innerHTML = `
+        <div class="border-b border-slate-100 pb-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-indigo-600">${set.badge}</div>
+          <h3 class="text-base sm:text-lg font-extrabold text-slate-900 mt-0.5">${set.title}</h3>
+        </div>
+      `;
+
+      set.blocks.forEach(block => {
+        if (block.type === 'heading') {
+          const h = document.createElement('h4');
+          h.className = 'text-sm font-extrabold uppercase tracking-wider text-slate-700 pt-2';
+          h.textContent = block.text;
+          reader.appendChild(h);
+        } else {
+          const p = document.createElement('div');
+          p.id = block.id;
+          p.className = 'tts-para font-serif text-sm sm:text-base text-slate-800 whitespace-pre-line px-3 py-2 rounded-lg';
+          p.textContent = block.text;
+          reader.appendChild(p);
+        }
+      });
+    }
+
+    function renderTestQuestion() {
+      stopTTS();
+      const idx = appState.test.currentQIndex;
+      const q = TEST_QUESTIONS[idx];
+
+      // Auto-sync passage set to match current question
+      if (appState.test.activePassageSet !== q.passageSet) {
+        selectPassageSet(q.passageSet);
+      }
+
+      // Render Question Navigation Pills
+      const pillsBox = document.getElementById('test-nav-pills');
+      pillsBox.innerHTML = '';
+      TEST_QUESTIONS.forEach((item, i) => {
+        const ans = appState.test.answers[item.id] || [];
+        const isComplete = item.multiSelect ? ans.length === 2 : ans.length === 1;
+        const pill = document.createElement('button');
+        pill.onclick = () => {
+          appState.test.currentQIndex = i;
+          renderTestQuestion();
+        };
+        pill.textContent = i + 1;
+        pill.className = `w-7 h-7 rounded-lg text-xs font-extrabold transition ${
+          i === idx
+            ? 'bg-amber-400 text-slate-950 ring-2 ring-white'
+            : isComplete
+            ? 'bg-indigo-600 text-white'
+            : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+        }`;
+        pillsBox.appendChild(pill);
+      });
+
+      document.getElementById('test-q-num').textContent = q.id;
+      document.getElementById('test-q-benchmark').textContent = q.benchmark;
+      document.getElementById('test-q-type').textContent = q.type;
+      document.getElementById('test-q-stem').textContent = q.stem;
+
+      const multiBanner = document.getElementById('test-multiselect-banner');
+      if (q.multiSelect) multiBanner.classList.remove('hidden');
+      else multiBanner.classList.add('hidden');
+
+      // Render Answer Options
+      const optList = document.getElementById('test-options-list');
+      optList.innerHTML = '';
+      const selected = appState.test.answers[q.id] || [];
+
+      q.options.forEach(opt => {
+        const isSelected = selected.includes(opt.id);
+        const btn = document.createElement('button');
+        btn.onclick = () => toggleTestOption(q.id, opt.id, q.multiSelect);
+        btn.className = `w-full text-left p-3.5 rounded-xl border-2 transition-all flex items-start gap-3 ${
+          isSelected
+            ? 'border-indigo-600 bg-indigo-50/80 shadow-sm'
+            : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+        }`;
+
+        const shape = q.multiSelect ? 'rounded-md' : 'rounded-full';
+        btn.innerHTML = `
+          <span class="w-7 h-7 ${shape} border-2 flex items-center justify-center text-xs font-extrabold shrink-0 mt-0.5 ${
+            isSelected
+              ? 'bg-indigo-700 border-indigo-700 text-white'
+              : 'border-slate-300 bg-white text-slate-600'
+          }">
+            ${opt.id}
+          </span>
+          <span class="text-sm text-slate-800 font-medium leading-relaxed">${opt.text}</span>
+        `;
+        optList.appendChild(btn);
+      });
+
+      const completedCount = TEST_QUESTIONS.filter(item => {
+        const ans = appState.test.answers[item.id] || [];
+        return item.multiSelect ? ans.length === 2 : ans.length === 1;
+      }).length;
+
+      document.getElementById('test-progress-text').textContent = `${completedCount} of ${TEST_QUESTIONS.length} answered`;
+      document.getElementById('test-prev-btn').disabled = idx === 0;
+
+      const nextBtn = document.getElementById('test-next-btn');
+      if (idx === TEST_QUESTIONS.length - 1) {
+        nextBtn.innerHTML = '<span>Submit PM2 Test</span><i data-lucide="check-circle" class="w-4 h-4"></i>';
+        nextBtn.className = 'px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm transition flex items-center gap-1.5';
+      } else {
+        nextBtn.innerHTML = '<span>Next</span><i data-lucide="chevron-right" class="w-4 h-4"></i>';
+        nextBtn.className = 'px-5 py-2.5 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-sm shadow-sm transition flex items-center gap-1.5';
+      }
+
+      lucide.createIcons();
+    }
+
+    function toggleTestOption(qId, optId, isMultiSelect) {
+      let current = appState.test.answers[qId] || [];
+
+      if (!isMultiSelect) {
+        appState.test.answers[qId] = [optId];
+      } else {
+        if (current.includes(optId)) {
+          appState.test.answers[qId] = current.filter(id => id !== optId);
+        } else {
+          if (current.length >= 2) {
+            showToast('Select only TWO answers. Deselect one option first to change your choice.');
+            return;
+          }
+          appState.test.answers[qId] = [...current, optId].sort();
+        }
+      }
+
+      renderTestQuestion();
+    }
+
+    function prevTestQuestion() {
+      if (appState.test.currentQIndex > 0) {
+        appState.test.currentQIndex--;
+        renderTestQuestion();
+      }
+    }
+
+    function nextTestQuestion() {
+      if (appState.test.currentQIndex < TEST_QUESTIONS.length - 1) {
+        appState.test.currentQIndex++;
+        renderTestQuestion();
+      } else {
+        const firstIncomplete = TEST_QUESTIONS.findIndex(item => {
+          const ans = appState.test.answers[item.id] || [];
+          return item.multiSelect ? ans.length < 2 : ans.length < 1;
+        });
+
+        if (firstIncomplete !== -1) {
+          appState.test.currentQIndex = firstIncomplete;
+          renderTestQuestion();
+          showToast(`Please complete Question ${firstIncomplete + 1} before submitting your test.`);
+          return;
+        }
+
+        scoreAndShowTestResults();
+      }
+    }
+
+    function getAchievementLevelBand(correctCount) {
+      if (correctCount >= 12) {
+        return {
+          badge: 'Level 5 • Mastery',
+          desc: 'Exemplary command of Grade 6 B.E.S.T. reading benchmarks across literary, informational, and rhetorical texts.',
+          cardClass: 'bg-emerald-50 border-emerald-300 text-emerald-900'
+        };
+      }
+      if (correctCount >= 10) {
+        return {
+          badge: 'Level 4 • Proficient',
+          desc: 'Strong, grade-level proficiency across plot, poetic structure, argument analysis, and vocabulary.',
+          cardClass: 'bg-indigo-50 border-indigo-300 text-indigo-900'
+        };
+      }
+      if (correctCount >= 8) {
+        return {
+          badge: 'Level 3 • On-Grade-Level',
+          desc: 'Solid foundation on core standards. Review missed rationales below to sharpen evidence and reasoning distinctions.',
+          cardClass: 'bg-sky-50 border-sky-300 text-sky-900'
+        };
+      }
+      if (correctCount >= 5) {
+        return {
+          badge: 'Level 2 • Developing',
+          desc: 'Approaching grade-level expectations. Practice the Answer Picker rules and Trap-Buster rounds for targeted growth.',
+          cardClass: 'bg-amber-50 border-amber-300 text-amber-950'
+        };
+      }
+      return {
+        badge: 'Level 1 • Intensive Support',
+        desc: 'Use the 13 Benchmarks Explorer with Read-Aloud audio to review each mental formula before retaking the test.',
+        cardClass: 'bg-rose-50 border-rose-300 text-rose-950'
+      };
+    }
+
+    function scoreAndShowTestResults() {
+      stopTTS();
+      appState.test.submitted = true;
+
+      let totalCorrect = 0;
+      const catStats = {
+        'Prose & Poetry': { label: 'Reading Prose & Poetry', correct: 0, total: 0 },
+        'Informational Text': { label: 'Reading Informational Text', correct: 0, total: 0 },
+        'Across Genres & Vocabulary': { label: 'Across Genres & Vocabulary', correct: 0, total: 0 }
+      };
+
+      const reviewContainer = document.getElementById('results-items-review');
+      reviewContainer.innerHTML = '';
+
+      TEST_QUESTIONS.forEach((q, idx) => {
+        const userAns = (appState.test.answers[q.id] || []).slice().sort();
+        const rightAns = q.correct.slice().sort();
+        const isCorrect = JSON.stringify(userAns) === JSON.stringify(rightAns);
+
+        catStats[q.category].total++;
+        if (isCorrect) {
+          totalCorrect++;
+          catStats[q.category].correct++;
+        }
+
+        const optionsHtml = q.options.map(opt => {
+          const picked = userAns.includes(opt.id);
+          const correct = rightAns.includes(opt.id);
+
+          let style = 'bg-slate-50 border-slate-200 text-slate-700';
+          let tag = '';
+          if (correct) {
+            style = 'bg-emerald-50 border-emerald-400 text-emerald-950 font-semibold';
+            tag = '<span class="text-xs font-extrabold text-emerald-700">✓ Correct</span>';
+          } else if (picked && !correct) {
+            style = 'bg-rose-50 border-rose-400 text-rose-950';
+            tag = '<span class="text-xs font-extrabold text-rose-700">✕ Your Choice</span>';
+          }
+
+          return `
+            <div class="p-3 rounded-xl border text-xs sm:text-sm flex items-start justify-between gap-2 ${style}">
+              <div><strong>${opt.id}.</strong> ${opt.text}</div>
+              <div class="shrink-0">${tag}</div>
+            </div>
+          `;
+        }).join('');
+
+        const card = document.createElement('div');
+        card.className = `bg-white rounded-2xl border-2 p-5 sm:p-6 shadow-sm space-y-3 ${
+          isCorrect ? 'border-emerald-200' : 'border-rose-200'
+        }`;
+
+        card.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-extrabold ${
+                isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+              }">
+                Question ${q.id} • ${isCorrect ? 'Correct' : 'Review Needed'}
+              </span>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-xs font-bold">${q.benchmark}</span>
+            </div>
+            <button onclick="speakTestItemRationale(${idx})" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 text-xs font-bold transition">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+              <span>Read Rationale</span>
+            </button>
+          </div>
+          <p class="text-sm sm:text-base font-extrabold text-slate-900">${q.stem}</p>
+          <div class="space-y-2">${optionsHtml}</div>
+          <div class="bg-indigo-50/70 border border-indigo-200 rounded-xl p-3.5 text-xs sm:text-sm text-slate-800 leading-relaxed">
+            <strong class="text-indigo-900">FAST Rationale:</strong> ${q.explanation}
+          </div>
+        `;
+        reviewContainer.appendChild(card);
+      });
+
+      // Populate Hero Banner & Achievement Band (No Percentages)
+      const band = getAchievementLevelBand(totalCorrect);
+      document.getElementById('results-headline').textContent = `You answered ${totalCorrect} of ${TEST_QUESTIONS.length} items correctly`;
+      document.getElementById('results-level-desc').textContent = band.desc;
+      document.getElementById('results-level-badge').textContent = band.badge;
+      document.getElementById('results-fraction-badge').textContent = `${totalCorrect} of ${TEST_QUESTIONS.length} Correct`;
+
+      // Populate Category Breakdown Cards (No Percentages)
+      const catGrid = document.getElementById('results-category-grid');
+      catGrid.innerHTML = '';
+      Object.values(catStats).forEach(stat => {
+        const box = document.createElement('div');
+        box.className = 'p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3';
+        box.innerHTML = `
+          <div>
+            <div class="text-xs font-extrabold text-slate-800">${stat.label}</div>
+            <div class="text-xs text-slate-500 mt-0.5">Reporting Category</div>
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-sm font-black text-indigo-700 shrink-0">
+            ${stat.correct} of ${stat.total}
+          </div>
+        `;
+        catGrid.appendChild(box);
+      });
+
+      document.getElementById('test-split-workspace').classList.add('hidden');
+      document.getElementById('test-results-view').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function retakePracticeTest() {
+      stopTTS();
+      appState.test.currentQIndex = 0;
+      appState.test.answers = {};
+      appState.test.submitted = false;
+      document.getElementById('test-results-view').classList.add('hidden');
+      document.getElementById('test-split-workspace').classList.remove('hidden');
+      selectPassageSet(0);
+      renderTestQuestion();
+    }
+
+    // =========================================================================
+    // 10. INITIALIZATION
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      initTTS();
+      renderBenchmarksGrid();
+      renderBenchmarkDetail();
+      renderGameRound();
+      selectPassageSet(0);
+      renderTestQuestion();
+      lucide.createIcons();
+    });
+
+    window.addEventListener('beforeunload', () => {
+      stopTTS();
+    });
+  </script>
+</body>
+</html>
